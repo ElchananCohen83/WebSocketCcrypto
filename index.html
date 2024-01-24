@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+</head>
+
+<body>
+    <h1>WebSocket Client</h1>
+    <div id="output"></div>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8080/ws");
+
+        socket.onopen = function (event) {
+            console.log("WebSocket connection opened:", event);
+            sendMessage("Hello, frome client!");
+        };
+
+        function sendMessage(message) {
+            socket.send(message);
+            console.log("Sent message:", message);
+        }
+
+        socket.onmessage = function (event) {
+            console.log("WebSocket message received:", event);
+            displayMessage(event.data);
+        };
+
+        socket.onclose = function (event) {
+            console.log("WebSocket connection closed:", event);
+        };
+
+
+
+        function displayMessage(message) {
+            const outputDiv = document.getElementById("output");
+            outputDiv.innerHTML += `<p>${message}</p>`;
+        }
+    </script>
+</body>
+
+</html>
