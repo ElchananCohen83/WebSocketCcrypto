@@ -17,7 +17,7 @@ function App() {
   }
 
   socket.onmessage = function (event) {
-    console.log("WebSocket message received:", event);
+    // console.log("WebSocket message received:", event);
     const parsedData = JSON.parse(event.data);
     setCryptoData(parsedData);
   };
