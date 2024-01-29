@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BasicLineChart from "./components/ChartsLines.jsx";
+import CircularWithValueLabel from './components/CircularWithLabel.jsx';
 
 const socket = new WebSocket("ws://localhost:8080/ws");
 
@@ -29,6 +30,7 @@ function App() {
   return (
     <div>
       {cryptoData && <BasicLineChart cryptoData={cryptoData} />}
+      <CircularWithValueLabel/>
     </div>
   );
 }
