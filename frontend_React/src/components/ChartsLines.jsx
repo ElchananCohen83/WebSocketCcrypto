@@ -20,20 +20,20 @@ const BasicLineChart = ({ cryptoData }) => {
 
   return (
       <LineChart
-        // sx={{
-        //   '& .MuiLineElement-root': {
-        //     // strokeDasharray: '10 5',
-        //     strokeWidth: 4,
-        //     stroke: "red",
-        //     markers: "[]"
-        //   },
-        //   '& .MuiLineChart-dot': {
-        //     display: 'none', // hide the dots/circles
-        //   },
-        //   '& .MuiLineChart-series-0 .MuiLineElement-root': {
-        //     fill: 'none', // hide the points on stroke
-        //   },
-        // }}
+        sx={{
+          '& .MuiLineElement-root': {
+            // strokeDasharray: '10 5',
+            strokeWidth: 2,
+            stroke: "#31E599",
+            markers: "[]"
+          },
+          // '& .MuiLineChart-dot': {
+          //   display: 'none', // hide the dots/circles
+          // },
+          // '& .MuiLineChart-series-0 .MuiLineElement-root': {
+          //   fill: 'none', // hide the points on stroke
+          // },
+        }}
 
         // bottomAxis={{
         //   disableLine: true,
