@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export default function webSocketClient(setCryptoData) {
   const socket = new WebSocket("ws://localhost:8080/ws");
 

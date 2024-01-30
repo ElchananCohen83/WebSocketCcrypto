@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
+import CircularWithValueLabel from './CircularWithLabel.jsx';
 
 const BasicLineChart = ({ cryptoData }) => {
   const [averagePriceArray, setAveragePriceArray] = useState([]);
@@ -10,7 +11,7 @@ const BasicLineChart = ({ cryptoData }) => {
     setAveragePriceArray((prevArray) => {
       const newArray = [...prevArray, averagePrice];
 
-      if (newArray.length === 62) {
+      if (newArray.length === 78) {
         return [parseFloat(cryptoData.w)];
       }
 
@@ -19,31 +20,18 @@ const BasicLineChart = ({ cryptoData }) => {
   }, [cryptoData]);
 
   return (
+    <div style={{ position: 'relative', width: '500px', height: '300px' }}>
       <LineChart
         sx={{
           '& .MuiLineElement-root': {
-            // strokeDasharray: '10 5',
             strokeWidth: 2,
             stroke: "#31E599",
             markers: "[]"
           },
-          // '& .MuiLineChart-dot': {
-          //   display: 'none', // hide the dots/circles
-          // },
-          // '& .MuiLineChart-series-0 .MuiLineElement-root': {
-          //   fill: 'none', // hide the points on stroke
-          // },
         }}
-
-        // bottomAxis={{
-        //   disableLine: true,
-        //   disableTicks: true,
-        //   label: "",
-        //   tickSize: NaN,
-        // }}
         xAxis={[
           {
-            data: Array.from({ length: 80 }, (_, index) => index + 1),
+            data: Array.from({ length: 100 }, (_, index) => index + 1),
             scaleType: 'time',
           },
         ]}
@@ -56,18 +44,15 @@ const BasicLineChart = ({ cryptoData }) => {
         width={500}
         height={300}
       />
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+        <CircularWithValueLabel color="#31E599" seconds={30} circularProgress={340}/>
+      </div>
+      <div style={{ position: 'absolute', top: '50%', left: '70%', transform: 'translate(-50%, -50%)' }}>
+        <CircularWithValueLabel color="#DD4830" seconds={60} circularProgress={170} />
+      </div>
+
+    </div>
   );
 };
 
 export default BasicLineChart;
-
-
-
-{/*
-Event Type: ${cryptoData.e}
-Event Time: ${cryptoData.E}
-Symbol: ${cryptoData.s}
-Interval: ${cryptoData.i}
-Average Price: ${cryptoData.w}  //39927.51049845
-Timestamp: ${cryptoData.T} 
-*/}

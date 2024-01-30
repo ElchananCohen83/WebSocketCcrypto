@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import './styles.css';
 
 const MIN = 0;
 const MAX = 100;
 
-function CircularProgressWithLabel(props) {
-  const normalise = (value) => ((value - MIN) * 170) / (MAX - MIN);
+function CircularProgressWithLabel({ value, color, circularProgress }) {
+  const normalise = (value) => ((value - MIN) * circularProgress) / (MAX - MIN);
 
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" value={normalise(props.value)} /> {/* color="inherit/success/secondary" */}
+      <CircularProgress
+        variant="determinate"
+        value={normalise(value)}
+        sx={{ color: color }}
+      />
       <Box
         sx={{
           top: 0,
@@ -26,9 +29,8 @@ function CircularProgressWithLabel(props) {
           justifyContent: 'center',
         }}
       >
-        
         <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}`}
+          {`${Math.round(value)}`}
         </Typography>
       </Box>
     </Box>
@@ -37,9 +39,11 @@ function CircularProgressWithLabel(props) {
 
 CircularProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
+  circularProgress: PropTypes.number.isRequired,
 };
 
-export default function CircularWithValueLabel() {
+export default function CircularWithValueLabel({ color, seconds, circularProgress }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -47,15 +51,16 @@ export default function CircularWithValueLabel() {
       setProgress((prevProgress) => {
         const newProgress = prevProgress + 1;
 
-        // Restart the timer when it reaches 60
-        return newProgress >= 60 ? 0 : newProgress;
+        // Restart the timer when it reaches the specified seconds
+        return newProgress >= seconds ? 0 : newProgress;
       });
     }, 1000); // Update every second
 
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [seconds]);
 
-  return <CircularProgressWithLabel value={progress} />;
+  // Pass the color and seconds props to CircularProgressWithLabel component
+  return <CircularProgressWithLabel value={progress} color={color} seconds={seconds} circularProgress={circularProgress}/>;
 }
