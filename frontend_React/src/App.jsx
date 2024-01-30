@@ -1,36 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BasicLineChart from "./components/ChartsLines.jsx";
 import CircularWithValueLabel from './components/CircularWithLabel.jsx';
-
-const socket = new WebSocket("ws://localhost:8080/ws");
+import webSocketClient from './webSocket.js';
 
 function App() {
   const [cryptoData, setCryptoData] = useState(null);
 
-  socket.onopen = function (event) {
-    console.log("WebSocket connection opened:", event);
-    sendMessage("send");
-  };
+  useEffect(() => {
+    const websocket = webSocketClient(setCryptoData);
 
-  function sendMessage(message) {
-    socket.send(message);
-    console.log("Sent message:", message);
-  }
-
-  socket.onmessage = function (event) {
-    // console.log("WebSocket message received:", event);
-    const parsedData = JSON.parse(event.data);
-    setCryptoData(parsedData);
-  };
-
-  socket.onclose = function (event) {
-    console.log("WebSocket connection closed:", event);
-  };
+    // Cleanup the WebSocket connection when the component unmounts
+    return () => {
+      websocket.close();
+    };
+  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   return (
     <div>
       {cryptoData && <BasicLineChart cryptoData={cryptoData} />}
-      <CircularWithValueLabel/>
+      <CircularWithValueLabel />
     </div>
   );
 }
