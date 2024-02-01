@@ -73,4 +73,3 @@ export default function CircularWithValueLabel({ color, seconds, circularProgres
   // Pass the color and seconds props to CircularProgressWithLabel component
   return <CircularProgressWithLabel value={progress} color={color} seconds={seconds} circularProgress={circularProgress} />;
 }
-

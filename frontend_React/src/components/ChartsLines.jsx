@@ -40,11 +40,6 @@ const BasicLineChart = ({ cryptoData, onLastPointHeightChange }) => {
       <LineChart
         ref={lineChartRef}
         sx={{
-          // '& .MuiLineElement-root': {
-          //   strokeWidth: 2,
-          //   stroke: "#31E599",
-          //   markers: "[]",
-          // },
           '& .MuiMarkElement-root': {
             opacity: 0
           }

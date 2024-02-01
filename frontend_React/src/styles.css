@@ -2,18 +2,14 @@ html {
   background: #272042;
 }
 
-
-
 .left-arrow {
   width: 0;
   height: 0;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
   border-right: 25px solid white;
-  /* Adjust the head width and color as needed */
   position: absolute;
-  right: 79px;
-  /* Adjust the right position as needed */
+  right: 89px;
   top: 60%;
   transform: translateY(-50%);
 }
@@ -22,38 +18,30 @@ html {
   content: '';
   position: absolute;
   width: calc(100vw + 20px);
-  /* Adjust as needed, adding 20px to cover the entire width of the page */
-  height: 2px;
-  /* Adjust the height of the line */
-  background: repeating-linear-gradient(to right, white, white 2px, transparent 8px, transparent 8px);
-  /* Adjust the pattern as needed */
-  /* top: 50%; */
+  height: 1px;
+  background: repeating-linear-gradient(to right, #C3C2CA, #C3C2CA 20px, transparent 20px, transparent 40px);
   right: 0;
   border-radius: 1px;
-  /* Ensures a smooth line */
 }
 
 .left-rectangle {
   width: 79px;
-  /* Adjust the width as needed */
   height: 40px;
-  /* Adjust the height as needed */
   background-color: white;
-  /* Adjust color as needed */
   position: absolute;
   right: 0px;
-  /* Adjust the right position as needed, matching the arrowhead width */
   top: 60%;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 10px;
   color: #272042;
-  /* Text color, adjust as needed */
   font-weight: bold;
-  /* Make the text bold */
+  font-family: 'Inter', sans-serif; /* Specify the Inter font family */
 
+  padding-right: 10px;
 }
 
 .circular-timer {
@@ -69,31 +57,76 @@ html {
 #circular-red {
   left: 62%;
 }
+.flag-icon{
+  position: absolute;
+  height: 100vh;
+  left: 59%; 
+  top: 33%; 
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+#flag-red {
+  color: #DD4830;
+}
+
+#flag-white {
+  color: white;
+}
+
 
 #circular-white::after {
   content: '';
   position: absolute;
   width: 2px;
-  height: 100vh; /* Adjust the height to match your design */
+  height: 100vh; 
   background: repeating-linear-gradient(to top, #C3C2CA, #C3C2CA 2px, transparent 10px, transparent 20px);
   top: 0;
   right: 50%;
-  transform: translateY(-50%); /* Adjust the transform to center the line */
+  transform: translateY(-50%); 
   border-radius: 1px;
-  z-index: -1; /* Set a negative z-index to position it behind the circle */
+  z-index: -1; 
 }
 
 #circular-red::after {
   content: '';
   position: absolute;
   width: 2px;
-  height: 100vh; /* Adjust the height to match your design */
-  background: #DD4830; /* Set the background directly to the color you want */
-  top: 0; /* Center the line vertically within the container */
+  height: 100vh; 
+  background: #DD4830; 
+  top: 0; 
   right: 50%;
-  transform: translateY(-50%); /* Adjust the transform to center the line */
+  transform: translateY(-50%); 
   border-radius: 1px;
-  z-index: -1; /* Set a negative z-index to position it behind the circle */
+  z-index: -1; 
 }
 
+.range-rectangle {
+  position: absolute;
+  width: 79px;
+  height: 40px;
+  background-color: #272042;
+  right: 0;
+  top: 60%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  color: #5E6676;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif; /* Specify the Inter font family */
+  z-index: 1; /* Increase z-index to place it above the line */
+}
 
+.range-rectangle::before {
+  content: '';
+  position: absolute;
+  width: calc(100vw + 20px);
+  height: 2px;
+  background: #2D3542; 
+  right: 0;
+  border-radius: 1px;
+  z-index: 0; /* Lower z-index to place it below the black background */
+}
