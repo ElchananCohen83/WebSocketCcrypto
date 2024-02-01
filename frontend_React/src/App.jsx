@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import BasicLineChart from "./components/ChartsLines.jsx";
-import webSocketClient from './webSocket.js';
+import { Route, Routes } from 'react-router-dom';
+import Dashboard from './dashboard.jsx';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
 
 function App() {
-  const [cryptoData, setCryptoData] = useState(null);
-
-  useEffect(() => {
-    const setupWebSocket = async () => {
-      const websocket = webSocketClient(setCryptoData);
-
-      // Cleanup the WebSocket connection when the component unmounts
-      return () => {
-        websocket.close();
-      };
-    };
-
-    setupWebSocket();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
-
   return (
-    <div>
-      {cryptoData && <BasicLineChart cryptoData={cryptoData} />}
-    </div>
+    <ThemeProvider theme={theme}>
+      <Routes>
+        <Route path="/*" element={<Dashboard />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

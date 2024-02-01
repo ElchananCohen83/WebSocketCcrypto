@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import CircularWithValueLabel from './CircularWithLabel.jsx';
 
-const BasicLineChart = ({ cryptoData }) => {
+const BasicLineChart = ({ cryptoData, onLastPointHeightChange }) => {
   const [averagePriceArray, setAveragePriceArray] = useState([]);
+  const lineChartRef = useRef(null);
 
   useEffect(() => {
     const averagePrice = parseFloat(cryptoData.w);
@@ -19,15 +19,35 @@ const BasicLineChart = ({ cryptoData }) => {
     });
   }, [cryptoData]);
 
+  useEffect(() => {
+    const chartElement = lineChartRef.current;
+
+    if (chartElement) {
+      setTimeout(() => {
+        const lastPoint = chartElement.querySelector('.MuiMarkElement-root:last-child');
+
+        if (lastPoint) {
+          const rect = lastPoint.getBoundingClientRect();
+          onLastPointHeightChange(rect.top); // Invoke the callback with the height value
+        }
+      }, 0);
+    }
+  }, [averagePriceArray, lineChartRef, onLastPointHeightChange]);
+
   return (
-    <div style={{ position: 'relative', width: '500px', height: '300px' }}>
+    <div style={{ width: '100vw', height: '100vh' }}>
+
       <LineChart
+        ref={lineChartRef}
         sx={{
-          '& .MuiLineElement-root': {
-            strokeWidth: 2,
-            stroke: "#31E599",
-            markers: "[]"
-          },
+          // '& .MuiLineElement-root': {
+          //   strokeWidth: 2,
+          //   stroke: "#31E599",
+          //   markers: "[]",
+          // },
+          '& .MuiMarkElement-root': {
+            opacity: 0
+          }
         }}
         xAxis={[
           {
@@ -38,19 +58,9 @@ const BasicLineChart = ({ cryptoData }) => {
         series={[
           {
             data: averagePriceArray,
-            showMark: false,
           },
         ]}
-        width={500}
-        height={300}
       />
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-        <CircularWithValueLabel color="#31E599" seconds={30} circularProgress={340}/>
-      </div>
-      <div style={{ position: 'absolute', top: '50%', left: '70%', transform: 'translate(-50%, -50%)' }}>
-        <CircularWithValueLabel color="#DD4830" seconds={60} circularProgress={170} />
-      </div>
-
     </div>
   );
 };

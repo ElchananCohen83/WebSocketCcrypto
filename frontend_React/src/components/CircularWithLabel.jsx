@@ -15,7 +15,11 @@ function CircularProgressWithLabel({ value, color, circularProgress }) {
       <CircularProgress
         variant="determinate"
         value={normalise(value)}
-        sx={{ color: color }}
+        sx={{
+          color: color,
+          background: "#272042",
+          padding: '10px',
+        }}
       />
       <Box
         sx={{
@@ -29,7 +33,11 @@ function CircularProgressWithLabel({ value, color, circularProgress }) {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography variant="caption" component="div" color="text.secondary"
+          sx={{
+            color: color,
+            fontSize: '20px',
+          }}>
           {`${Math.round(value)}`}
         </Typography>
       </Box>
@@ -44,15 +52,16 @@ CircularProgressWithLabel.propTypes = {
 };
 
 export default function CircularWithValueLabel({ color, seconds, circularProgress }) {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(seconds);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
-        const newProgress = prevProgress + 1;
+        // Decrease the timer countdown
+        const newProgress = prevProgress - 1;
 
-        // Restart the timer when it reaches the specified seconds
-        return newProgress >= seconds ? 0 : newProgress;
+        // Restart the timer when it reaches 0
+        return newProgress >= 0 ? newProgress : seconds;
       });
     }, 1000); // Update every second
 
@@ -62,5 +71,6 @@ export default function CircularWithValueLabel({ color, seconds, circularProgres
   }, [seconds]);
 
   // Pass the color and seconds props to CircularProgressWithLabel component
-  return <CircularProgressWithLabel value={progress} color={color} seconds={seconds} circularProgress={circularProgress}/>;
+  return <CircularProgressWithLabel value={progress} color={color} seconds={seconds} circularProgress={circularProgress} />;
 }
+

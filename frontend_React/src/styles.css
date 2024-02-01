@@ -1,0 +1,99 @@
+html {
+  background: #272042;
+}
+
+
+
+.left-arrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 25px solid white;
+  /* Adjust the head width and color as needed */
+  position: absolute;
+  right: 79px;
+  /* Adjust the right position as needed */
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+.left-arrow::before {
+  content: '';
+  position: absolute;
+  width: calc(100vw + 20px);
+  /* Adjust as needed, adding 20px to cover the entire width of the page */
+  height: 2px;
+  /* Adjust the height of the line */
+  background: repeating-linear-gradient(to right, white, white 2px, transparent 8px, transparent 8px);
+  /* Adjust the pattern as needed */
+  /* top: 50%; */
+  right: 0;
+  border-radius: 1px;
+  /* Ensures a smooth line */
+}
+
+.left-rectangle {
+  width: 79px;
+  /* Adjust the width as needed */
+  height: 40px;
+  /* Adjust the height as needed */
+  background-color: white;
+  /* Adjust color as needed */
+  position: absolute;
+  right: 0px;
+  /* Adjust the right position as needed, matching the arrowhead width */
+  top: 60%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #272042;
+  /* Text color, adjust as needed */
+  font-weight: bold;
+  /* Make the text bold */
+
+}
+
+.circular-timer {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#circular-white {
+  left: 40%;
+}
+
+#circular-red {
+  left: 62%;
+}
+
+#circular-white::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 100vh; /* Adjust the height to match your design */
+  background: repeating-linear-gradient(to top, #C3C2CA, #C3C2CA 2px, transparent 10px, transparent 20px);
+  top: 0;
+  right: 50%;
+  transform: translateY(-50%); /* Adjust the transform to center the line */
+  border-radius: 1px;
+  z-index: -1; /* Set a negative z-index to position it behind the circle */
+}
+
+#circular-red::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 100vh; /* Adjust the height to match your design */
+  background: #DD4830; /* Set the background directly to the color you want */
+  top: 0; /* Center the line vertically within the container */
+  right: 50%;
+  transform: translateY(-50%); /* Adjust the transform to center the line */
+  border-radius: 1px;
+  z-index: -1; /* Set a negative z-index to position it behind the circle */
+}
+
+
